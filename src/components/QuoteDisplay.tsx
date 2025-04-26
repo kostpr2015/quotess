@@ -1,44 +1,38 @@
-
 import React, { useState, useEffect } from 'react';
 import { quotes } from '../data/quotes';
 
 const QuoteDisplay = () => {
   const [currentQuote, setCurrentQuote] = useState(quotes[0]);
   const [fadeIn, setFadeIn] = useState(true);
-
-  const getCurrentHour = () => new Date().getHours();
-  const [currentHour, setCurrentHour] = useState(getCurrentHour());
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
 
   useEffect(() => {
-    // Update quote based on current hour
+    // Update quote every 10 seconds
     const updateQuote = () => {
-      const hour = getCurrentHour();
-      if (hour !== currentHour) {
-        setFadeIn(false);
-        setTimeout(() => {
-          const index = hour % quotes.length;
-          setCurrentQuote(quotes[index]);
-          setCurrentHour(hour);
-          setFadeIn(true);
-        }, 500);
-      }
+      setFadeIn(false);
+      setTimeout(() => {
+        const nextIndex = (currentIndex + 1) % quotes.length;
+        setCurrentIndex(nextIndex);
+        setCurrentQuote(quotes[nextIndex]);
+        setFadeIn(true);
+      }, 500);
     };
 
     // Update time every second
     const updateTime = () => {
       setCurrentTime(new Date().toLocaleTimeString());
-      updateQuote();
     };
 
-    // Initial update
-    updateQuote();
-
     // Set up intervals
+    const quoteInterval = setInterval(updateQuote, 10000); // 10 seconds
     const timeInterval = setInterval(updateTime, 1000);
 
-    return () => clearInterval(timeInterval);
-  }, [currentHour]);
+    return () => {
+      clearInterval(quoteInterval);
+      clearInterval(timeInterval);
+    };
+  }, [currentIndex]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#E5DEFF]">
@@ -59,7 +53,7 @@ const QuoteDisplay = () => {
           </p>
         </div>
         <div className="mt-8 text-center text-sm text-[#1A1F2C]/60">
-          Quote updates every hour
+          Quote updates every 10 seconds
         </div>
       </div>
     </div>
