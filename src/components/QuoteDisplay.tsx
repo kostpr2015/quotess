@@ -1,5 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { quotes } from '../data/quotes';
+import { Quote } from 'lucide-react';
 
 const QuoteDisplay = () => {
   const [currentQuote, setCurrentQuote] = useState(quotes[0]);
@@ -35,24 +37,30 @@ const QuoteDisplay = () => {
   }, [currentIndex]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#E5DEFF]">
-      <div className="max-w-2xl w-full">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#9b87f5]">
+      <div className="max-w-3xl w-full relative">
+        {/* Large quote marks */}
+        <div className="absolute -top-12 left-0 text-white/20 text-[120px] font-serif rotate-180">"</div>
+        <div className="absolute -bottom-32 right-0 text-white/20 text-[120px] font-serif">"</div>
+        
         <div className="text-center mb-8">
-          <p className="text-lg font-medium text-[#1A1F2C]/70">{currentTime}</p>
+          <p className="text-lg font-medium text-white/70">{currentTime}</p>
         </div>
+        
         <div 
-          className={`bg-white p-8 rounded-xl shadow-lg transform transition-opacity duration-500 ${
+          className={`bg-transparent p-8 rounded-3xl transform transition-opacity duration-500 ${
             fadeIn ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <blockquote className="text-2xl font-medium text-[#1A1F2C] mb-4 leading-relaxed">
-            "{currentQuote.text}"
+          <blockquote className="text-4xl font-medium text-white mb-6 leading-relaxed text-center px-12">
+            {currentQuote.text}
           </blockquote>
-          <p className="text-right text-lg text-[#1A1F2C]/70">
+          <p className="text-right text-xl text-white/70 mt-8 pr-12">
             — {currentQuote.author}
           </p>
         </div>
-        <div className="mt-8 text-center text-sm text-[#1A1F2C]/60">
+        
+        <div className="mt-8 text-center text-sm text-white/60">
           Quote updates every 10 seconds
         </div>
       </div>
