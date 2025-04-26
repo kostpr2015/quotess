@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { quotes } from '../data/quotes';
 import { Quote } from 'lucide-react';
@@ -7,7 +6,7 @@ const QuoteDisplay = () => {
   const [currentQuote, setCurrentQuote] = useState(quotes[0]);
   const [fadeIn, setFadeIn] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     // Update quote every 10 seconds
@@ -23,7 +22,7 @@ const QuoteDisplay = () => {
 
     // Update time every second
     const updateTime = () => {
-      setCurrentTime(new Date().toLocaleTimeString());
+      setCurrentTime(new Date());
     };
 
     // Set up intervals
@@ -36,6 +35,14 @@ const QuoteDisplay = () => {
     };
   }, [currentIndex]);
 
+  // Format time in a modern, 12-hour English style
+  const formattedTime = currentTime.toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  });
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#9b87f5]">
       <div className="max-w-3xl w-full relative">
@@ -44,7 +51,7 @@ const QuoteDisplay = () => {
         <div className="absolute -bottom-32 right-0 text-white/20 text-[120px] font-serif">"</div>
         
         <div className="text-center mb-8">
-          <p className="text-lg font-medium text-white/70">{currentTime}</p>
+          <p className="text-2xl font-medium text-white/70">{formattedTime}</p>
         </div>
         
         <div 
