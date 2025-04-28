@@ -1,6 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
 import { quotes } from '../data/quotes';
-import { Quote } from 'lucide-react';
 
 const QuoteDisplay = () => {
   const [currentQuote, setCurrentQuote] = useState(quotes[0]);
@@ -44,30 +44,30 @@ const QuoteDisplay = () => {
   });
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#9b87f5]">
-      <div className="max-w-3xl w-full relative">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 bg-[#9b87f5] touch-pan-y">
+      <div className="w-full max-w-md sm:max-w-3xl relative">
         {/* Large quote marks */}
-        <div className="absolute -top-12 left-0 text-white/20 text-[120px] font-serif rotate-180">"</div>
-        <div className="absolute -bottom-32 right-0 text-white/20 text-[120px] font-serif">"</div>
+        <div className="absolute -top-8 sm:-top-12 left-0 text-white/20 text-[80px] sm:text-[120px] font-serif rotate-180">"</div>
+        <div className="absolute -bottom-24 sm:-bottom-32 right-0 text-white/20 text-[80px] sm:text-[120px] font-serif">"</div>
         
-        <div className="text-center mb-8">
-          <p className="text-2xl font-medium text-white/70">{formattedTime}</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <p className="text-xl sm:text-2xl font-medium text-white/70">{formattedTime}</p>
         </div>
         
         <div 
-          className={`bg-transparent p-8 rounded-3xl transform transition-opacity duration-500 ${
+          className={`bg-transparent p-6 sm:p-8 rounded-3xl transform transition-opacity duration-500 ${
             fadeIn ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <blockquote className="text-4xl font-medium text-white mb-6 leading-relaxed text-center px-12">
+          <blockquote className="text-2xl sm:text-4xl font-medium text-white mb-4 sm:mb-6 leading-relaxed text-center px-4 sm:px-12">
             {currentQuote.text}
           </blockquote>
-          <p className="text-right text-xl text-white/70 mt-8 pr-12">
+          <p className="text-right text-lg sm:text-xl text-white/70 mt-6 sm:mt-8 pr-4 sm:pr-12">
             — {currentQuote.author}
           </p>
         </div>
         
-        <div className="mt-8 text-center text-sm text-white/60">
+        <div className="mt-6 sm:mt-8 text-center text-xs sm:text-sm text-white/60">
           Quote updates every 10 seconds
         </div>
       </div>
